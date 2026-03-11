@@ -455,8 +455,13 @@
                         linkedin.com/in/sivaraman-nithyashree
                     </a>
                 </div>
-                <a href="mailto:rsnithyashreeodc029@gmail.com" class="btn btn-primary btn-large">Start a
-                    Conversation</a>
+                <form id="contact-form" class="contact-form-container">
+                    <input type="email" id="email" name="email" placeholder="Your Email Address" required class="contact-input" />
+                    <input type="text" id="subject" name="subject" placeholder="Subject" required class="contact-input" />
+                    <textarea id="message" name="message" placeholder="Your Message" required class="contact-textarea" rows="5"></textarea>
+                    <button type="submit" id="submit-btn" class="btn btn-primary btn-large contact-submit">Send Message</button>
+                    <div id="form-status" class="form-status" style="display: none; margin-top: 15px; font-weight: 500;"></div>
+                </form>
             </div>
         </div>
     </section>

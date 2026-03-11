@@ -186,3 +186,55 @@ if (window.matchMedia('(hover: hover)').matches) {
   }
   animateGlow();
 }
+
+/* ─── 12. CONTACT FORM SUBMISSION ─── */
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Get form data
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    const submitBtn = document.getElementById('submit-btn');
+
+    // UI Feedback
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    formStatus.style.display = 'none';
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, subject, message })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        formStatus.textContent = result.success || 'Message sent successfully!';
+        formStatus.style.color = 'var(--green)';
+        formStatus.style.display = 'block';
+        contactForm.reset();
+      } else {
+        formStatus.textContent = result.error || 'Failed to send message. Please try again.';
+        formStatus.style.color = '#ef4444'; // Red
+        formStatus.style.display = 'block';
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      formStatus.textContent = 'A network error occurred. Please try again later.';
+      formStatus.style.color = '#ef4444';
+      formStatus.style.display = 'block';
+    } finally {
+      submitBtn.textContent = 'Send Message';
+      submitBtn.disabled = false;
+    }
+  });
+}
