@@ -196,6 +196,7 @@ if (contactForm) {
     e.preventDefault();
 
     // Get form data
+    const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const subject = document.getElementById('subject').value;
     const message = document.getElementById('message').value;
@@ -212,7 +213,7 @@ if (contactForm) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, subject, message })
+        body: JSON.stringify({ name, email, subject, message })
       });
 
       const result = await response.json();
@@ -238,3 +239,97 @@ if (contactForm) {
     }
   });
 }
+
+/* ─── 13. DARK/LIGHT MODE TOGGLE ─── */
+const themeToggleBtn = document.getElementById('theme-toggle');
+const sunIcon = document.querySelector('.sun-icon');
+const moonIcon = document.querySelector('.moon-icon');
+
+// Check for saved user preference, if any, on load of the website
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme === 'dark') {
+  document.body.classList.add('dark-mode');
+  sunIcon.style.display = 'none';
+  moonIcon.style.display = 'block';
+}
+
+themeToggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  
+  let theme = 'light';
+  if (document.body.classList.contains('dark-mode')) {
+    theme = 'dark';
+    sunIcon.style.display = 'none';
+    moonIcon.style.display = 'block';
+  } else {
+    sunIcon.style.display = 'block';
+    moonIcon.style.display = 'none';
+  }
+  // Save user preference
+  localStorage.setItem('theme', theme);
+});
+
+/* ─── 14. RESUME MODAL HANDLER ─── */
+const openResumeBtn = document.getElementById('open-resume-btn');
+const closeResumeBtn = document.getElementById('close-resume-btn');
+const resumeModal = document.getElementById('resume-modal');
+
+if (openResumeBtn && closeResumeBtn && resumeModal) {
+  openResumeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    resumeModal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  });
+
+  closeResumeBtn.addEventListener('click', () => {
+    resumeModal.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+
+  // Close modal when clicking outside the content box
+  resumeModal.addEventListener('click', (e) => {
+    if (e.target === resumeModal) {
+      resumeModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+/* ─── 15. SKILLS PROGRESS ANIMATION ─── */
+const skillItems = document.querySelectorAll('.skill-item');
+
+if (skillItems.length > 0) {
+  const skillsObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Add class to animate name fade-in
+        entry.target.classList.add('animating');
+        
+        // Staggered width animation for the bar
+        const progressBar = entry.target.querySelector('.skill-progress');
+        if (progressBar) {
+          const targetWidth = progressBar.getAttribute('data-width');
+          // Slight delay for smooth visual effect
+          setTimeout(() => {
+            progressBar.style.width = targetWidth;
+          }, 200);
+        }
+        
+        // Stop observing once animated
+        skillsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+  // Apply staggered transition delays for names fading in
+  skillItems.forEach((item, index) => {
+    item.style.transitionDelay = `${index * 0.1}s`;
+    
+    // reset widths to 0 immediately inside JS just in case
+    const bar = item.querySelector('.skill-progress');
+    if (bar) bar.style.width = '0';
+    
+    skillsObserver.observe(item);
+  });
+}
+

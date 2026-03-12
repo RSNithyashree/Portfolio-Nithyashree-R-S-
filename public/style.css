@@ -32,6 +32,43 @@
   --transition: 0.3s ease;
 }
 
+/* =========================================
+   DARK MODE VARIABLES
+   ========================================= */
+body.dark-mode {
+  --bg: #121212;
+  --bg-card: #1e1e1e;
+  --bg-soft: #2a2a2a;
+  --bg-service: #1e1e1e;
+
+  --text-primary: #ededed;
+  --text-secondary: #a0a0a0;
+  --text-muted: #6b6b6b;
+
+  --accent: #ededed;
+  --accent-gold: #e5c05e;
+  --green: #22c55e; /* or adjust for dark mode if desired */
+
+  --border: #333333;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.8);
+}
+
+/* Dark Mode Contrast Fixes */
+body.dark-mode .btn-primary,
+body.dark-mode .nav-icon-btn--primary,
+body.dark-mode .skill-tag:hover,
+body.dark-mode .skill-tag.skill-item:hover .skill-name,
+body.dark-mode .skill-tag.skill-item:hover .skill-tag-pct {
+  color: #111 !important;
+}
+
+body.dark-mode .skill-tag.skill-item .skill-progress {
+  background: var(--bg-soft);
+}
+
+
 *,
 *::before,
 *::after {
@@ -256,8 +293,8 @@ button {
 }
 
 .btn-primary:hover {
-  background: #333;
-  border-color: #333;
+  background: var(--text-secondary);
+  border-color: var(--text-secondary);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -269,6 +306,8 @@ button {
 }
 
 .btn-outline:hover {
+  background: var(--text-primary);
+  color: var(--bg-card);
   border-color: var(--text-primary);
   transform: translateY(-2px);
 }
@@ -364,7 +403,7 @@ button {
 }
 
 .hero-accent {
-  background: linear-gradient(135deg, #111 30%, #777);
+  background: linear-gradient(135deg, var(--text-primary) 30%, var(--text-muted));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -434,7 +473,7 @@ button {
 .hero-img-placeholder {
   width: 100%;
   min-height: 380px;
-  background: linear-gradient(145deg, #f0ede7 0%, #e3dfd8 100%);
+  background: var(--bg-soft);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   display: flex;
@@ -675,6 +714,57 @@ button {
   gap: 10px;
 }
 
+/* ── Professional Thin Skill Bars ── */
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px; /* Constrain width to prevent it from looking too broad */
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.skill-item.animating .skill-name {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-bar {
+  width: 100%;
+  height: 4px; /* thin track */
+  background: var(--border); /* subtle empty track */
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.skill-item.animating .skill-bar {
+  opacity: 1;
+}
+
+.skill-progress {
+  height: 100%;
+  width: 0; /* Starts at 0 for animation */
+  background: linear-gradient(90deg, var(--text-muted), var(--text-primary)); /* subtle gradient for visual interest */
+  border-radius: var(--radius-full);
+  transition: width 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Default simple tags (for Soft Skills) */
 .skill-tag {
   display: inline-flex;
   align-items: center;
@@ -696,16 +786,56 @@ button {
   transform: translateY(-2px);
 }
 
-.skill-tag--soft {
-  background: linear-gradient(135deg, #fef9f0, #fef3dc);
-  border-color: #f6e4b0;
-  color: #7a5c20;
+/* Technical Skills Tags (combines tags and progress lines) */
+.skill-tag.skill-item {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.skill-tag--soft:hover {
-  background: #f0c94a;
-  border-color: #f0c94a;
-  color: #111;
+.skill-tag.skill-item .skill-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0; /* animated via JS */
+  background: var(--bg-soft);
+  z-index: -1;
+  border-radius: 0;
+}
+
+.skill-tag.skill-item:hover .skill-progress {
+  opacity: 0;
+}
+
+.skill-tag.skill-item .skill-name {
+  font-size: 13px;
+  font-weight: 500;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease, color var(--transition);
+}
+
+.skill-tag.skill-item .skill-tag-pct {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease, color var(--transition);
+}
+
+.skill-tag.skill-item.animating .skill-tag-pct {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-tag.skill-item:hover .skill-tag-pct,
+.skill-tag.skill-item:hover .skill-name {
+  color: #fff;
 }
 
 /* =========================================
@@ -1445,6 +1575,9 @@ button {
   flex-direction: column;
   gap: 16px;
   width: 100%;
+  max-width: 600px; /* Constrain the width of the contact form */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contact-input,
@@ -1476,4 +1609,84 @@ button {
   width: 100%;
   justify-content: center;
   margin-top: 8px;
+}
+
+/* =========================================
+   RESUME MODAL
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  width: 90%;
+  max-width: 900px;
+  height: 85vh;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid var(--border);
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.modal-body {
+  flex: 1;
+  background: var(--bg-soft);
+  overflow: hidden;
+}
+
+.resume-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  background: var(--bg-card);
 }

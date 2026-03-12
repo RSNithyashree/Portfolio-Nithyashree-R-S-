@@ -34,6 +34,22 @@
                 </div>
             </div>
             <div class="nav-right">
+                <button id="theme-toggle" class="nav-icon-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+                    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="moon-icon" style="display: none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
                 <a href="#about" class="nav-text-link">About</a>
                 <a href="#experience" class="nav-text-link">Experience</a>
                 <a href="#projects" class="nav-text-link">Projects</a>
@@ -61,6 +77,7 @@
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">View My Projects</a>
                     <a href="#contact" class="btn btn-outline">Contact Me</a>
+                    <button id="open-resume-btn" class="btn btn-outline">Open Resume</button>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
@@ -279,26 +296,61 @@
                 <div class="skills-group">
                     <h3 class="skills-group-title">🛠 Technical Skills</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Data Structures</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">DBMS / SQL</span>
-                        <span class="skill-tag">Android Studio</span>
-                        <span class="skill-tag">Networking [Cisco Packet Tracer]</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">IoT Basics</span>
+                        <!-- 90% Efficiency -->
+                        <div class="skill-tag skill-item">
+                            <div class="skill-progress" data-width="90%"></div>
+                            <span class="skill-name">Java</span>
+                            <span class="skill-tag-pct">90%</span>
+                        </div>
+                        <div class="skill-tag skill-item">
+                            <div class="skill-progress" data-width="90%"></div>
+                            <span class="skill-name">Networking [Cisco Packet Tracer]</span>
+                            <span class="skill-tag-pct">90%</span>
+                        </div>
+
+                        <!-- 80% Efficiency -->
+                        <div class="skill-tag skill-item">
+                            <div class="skill-progress" data-width="80%"></div>
+                            <span class="skill-name">Python</span>
+                            <span class="skill-tag-pct">80%</span>
+                        </div>
+                        <div class="skill-tag skill-item">
+                            <div class="skill-progress" data-width="80%"></div>
+                            <span class="skill-name">Data Structures</span>
+                            <span class="skill-tag-pct">80%</span>
+                        </div>
+                        <div class="skill-tag skill-item">
+                            <div class="skill-progress" data-width="80%"></div>
+                            <span class="skill-name">DBMS / SQL</span>
+                            <span class="skill-tag-pct">80%</span>
+                        </div>
+
+                        <!-- 60% Efficiency -->
+                        <div class="skill-tag skill-item">
+                            <div class="skill-progress" data-width="60%"></div>
+                            <span class="skill-name">Android Studio</span>
+                            <span class="skill-tag-pct">60%</span>
+                        </div>
+
+                        <!-- 40% Efficiency -->
+                        <div class="skill-tag skill-item">
+                            <div class="skill-progress" data-width="40%"></div>
+                            <span class="skill-name">IoT Basics</span>
+                            <span class="skill-tag-pct">40%</span>
+                        </div>
                     </div>
                 </div>
                 <!-- Soft Skills -->
                 <div class="skills-group">
                     <h3 class="skills-group-title">🤝 Soft Skills</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag skill-tag--soft">Leadership</span>
-                        <span class="skill-tag skill-tag--soft">Teamwork</span>
-                        <span class="skill-tag skill-tag--soft">Time Management</span>
-                        <span class="skill-tag skill-tag--soft">Organized</span>
-                        <span class="skill-tag skill-tag--soft">Dedicated</span>
-                        <span class="skill-tag skill-tag--soft">Problem Solving</span>
-                        <span class="skill-tag skill-tag--soft">Communication</span>
+                        <span class="skill-tag">Leadership</span>
+                        <span class="skill-tag">Teamwork</span>
+                        <span class="skill-tag">Time Management</span>
+                        <span class="skill-tag">Organized</span>
+                        <span class="skill-tag">Dedicated</span>
+                        <span class="skill-tag">Problem Solving</span>
+                        <span class="skill-tag">Communication</span>
                     </div>
                 </div>
             </div>
@@ -454,13 +506,25 @@
                         </svg>
                         linkedin.com/in/sivaraman-nithyashree
                     </a>
+                    <a href="https://github.com/RSNithyashree" target="_blank" rel="noopener" class="contact-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        </svg>
+                        github.com/RSNithyashree
+                    </a>
                 </div>
                 <form id="contact-form" class="contact-form-container">
-                    <input type="email" id="email" name="email" placeholder="Your Email Address" required class="contact-input" />
-                    <input type="text" id="subject" name="subject" placeholder="Subject" required class="contact-input" />
-                    <textarea id="message" name="message" placeholder="Your Message" required class="contact-textarea" rows="5"></textarea>
-                    <button type="submit" id="submit-btn" class="btn btn-primary btn-large contact-submit">Send Message</button>
-                    <div id="form-status" class="form-status" style="display: none; margin-top: 15px; font-weight: 500;"></div>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required class="contact-input" />
+                    <input type="email" id="email" name="email" placeholder="Your Email Address" required
+                        class="contact-input" />
+                    <input type="text" id="subject" name="subject" placeholder="Subject" required
+                        class="contact-input" />
+                    <textarea id="message" name="message" placeholder="Your Message" required class="contact-textarea"
+                        rows="5"></textarea>
+                    <button type="submit" id="submit-btn" class="btn btn-primary btn-large contact-submit">Send
+                        Message</button>
+                    <div id="form-status" class="form-status"
+                        style="display: none; margin-top: 15px; font-weight: 500;"></div>
                 </form>
             </div>
         </div>
@@ -473,6 +537,34 @@
             <span>📍 Coimbatore, India</span>
         </div>
     </footer>
+
+    <!-- ========== RESUME MODAL ========== -->
+    <div id="resume-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>My Resume</h3>
+                <button id="close-resume-btn" class="nav-icon-btn" aria-label="Close Modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="resume.pdf" class="resume-iframe" title="Resume PDF"></iframe>
+            </div>
+            <div class="modal-footer">
+                <a href="resume.pdf" download="Nithyashree_Resume.pdf" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Resume
+                </a>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

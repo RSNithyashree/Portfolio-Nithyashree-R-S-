@@ -17,9 +17,9 @@ app.get("/", (req, res) => {
 
 // Contact Form API Endpoint
 app.post("/api/contact", async (req, res) => {
-    const { email, subject, message } = req.body;
-    
-    if (!email || !subject || !message) {
+    const { name, email, subject, message } = req.body;
+
+    if (!name || !email || !subject || !message) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -40,7 +40,7 @@ app.post("/api/contact", async (req, res) => {
             from: email,
             to: "rsnithyashreeodc029@gmail.com",
             subject: `Portfolio Contact: ${subject}`,
-            text: `You have received a new message from your portfolio website.\n\nFrom: ${email}\nSubject: ${subject}\nMessage:\n${message}\n\n---\nTo reply, please compose a new email to ${email}.`,
+            text: `You have received a new message from your portfolio website.\n\nFrom: ${name} (${email})\nSubject: ${subject}\nMessage:\n${message}\n\n---\nTo reply, please compose a new email to ${email}.`,
         };
 
         await transporter.sendMail(mailOptions);
