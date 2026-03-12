@@ -996,17 +996,34 @@ button {
 .contact-item {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
+  gap: 12px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--text-secondary);
-  transition: color var(--transition);
+  transition: all var(--transition);
   text-decoration: none;
+  padding: 8px 0;
+}
+
+.contact-item svg {
+  color: var(--text-muted);
+  transition: color var(--transition);
 }
 
 .contact-item:hover {
   color: var(--text-primary);
+  transform: translateX(8px);
 }
+
+.contact-item:hover svg {
+  color: var(--text-primary);
+}
+
+
+.text-left {
+  text-align: left !important;
+}
+
 
 /* =========================================
    CTA SECTION
@@ -1017,12 +1034,34 @@ button {
 }
 
 .cta-inner {
+  display: block; /* Removed flex column centering */
+  text-align: left;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.contact-info-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
   gap: 24px;
 }
+
+.contact-info-col .contact-details {
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+.contact-form-col {
+  padding-top: 132px; /* Align top of form with the subtext line ("Have an opportunity...") */
+}
+
+
+
 
 .cta-heading {
   font-size: 56px;
@@ -1034,7 +1073,7 @@ button {
 .cta-sub {
   font-size: 16px;
   color: var(--text-secondary);
-  max-width: 400px;
+  max-width: 460px;
   line-height: 1.75;
 }
 
@@ -1122,7 +1161,34 @@ button {
   .cta-heading {
     font-size: 42px;
   }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .cta-inner {
+    text-align: center;
+  }
+
+  .text-left {
+    text-align: center !important;
+  }
+
+  .contact-info-col {
+    align-items: center;
+  }
+
+  .contact-info-col .contact-details {
+    align-items: center;
+  }
+
+  .contact-form-col {
+    padding-top: 0;
+  }
 }
+
+
 
 /* =========================================
    RESPONSIVE — MOBILE (600px)
@@ -1570,14 +1636,10 @@ button {
 
 /* ── Contact Form Styles ── */
 .contact-form-container {
-  margin-top: 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  max-width: 600px; /* Constrain the width of the contact form */
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .contact-input,

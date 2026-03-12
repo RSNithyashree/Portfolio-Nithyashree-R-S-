@@ -274,26 +274,35 @@ const openResumeBtn = document.getElementById('open-resume-btn');
 const closeResumeBtn = document.getElementById('close-resume-btn');
 const resumeModal = document.getElementById('resume-modal');
 
-if (openResumeBtn && closeResumeBtn && resumeModal) {
-  openResumeBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    resumeModal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
-  });
+const openFpBtn = document.getElementById('open-fp-btn');
+const closeFpBtn = document.getElementById('close-fp-btn');
+const fpModal = document.getElementById('fp-modal');
 
-  closeResumeBtn.addEventListener('click', () => {
-    resumeModal.classList.remove('active');
-    document.body.style.overflow = '';
-  });
+const setupModal = (btn, modal, closeBtn) => {
+  if (btn && modal && closeBtn) {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
 
-  // Close modal when clicking outside the content box
-  resumeModal.addEventListener('click', (e) => {
-    if (e.target === resumeModal) {
-      resumeModal.classList.remove('active');
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
       document.body.style.overflow = '';
-    }
-  });
-}
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+};
+
+setupModal(openResumeBtn, resumeModal, closeResumeBtn);
+setupModal(openFpBtn, fpModal, closeFpBtn);
+
 
 /* ─── 15. SKILLS PROGRESS ANIMATION ─── */
 const skillItems = document.querySelectorAll('.skill-item');
